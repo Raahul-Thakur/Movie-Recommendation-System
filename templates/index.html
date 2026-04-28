@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-shell">
+        <div class="container hero">
+            <span class="eyebrow">Movie Discovery</span>
+            <h1>Find the movie vibe, not just the same words.</h1>
+            <p class="subtitle">
+                Search for one movie and get its details first, followed by ten titles that are most similar based on title patterns, genres, and hybrid content signals.
+            </p>
+
+            <form method="POST" action="{{ url_for('index') }}" class="search-form">
+                <input type="text" name="movie" placeholder="Try: Iron Man, Toy Story, The Dark Knight..." required>
+                <button type="submit">Search Movies</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

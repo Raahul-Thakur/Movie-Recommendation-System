@@ -1,0 +1,57 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables and local settings
+.env
+.env.*
+
+# Flask
+instance/
+.webassets-cache
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Test and coverage output
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Local logs
+*.log
+
+# Large local dataset files
+movies.csv
+movie.csv
+rating.csv
+ratings.csv
+tag.csv
+tags.csv
+link.csv
+links.csv
+genome_scores.csv
+genome-scores.csv
+genome_tags.csv
+genome-tags.csv
+
+# Generated recommender cache/model files
+*.pkl
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

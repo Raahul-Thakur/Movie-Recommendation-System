@@ -1,0 +1,5 @@
+- add more context in the dataset like genre, actors, directors, plotlines so that recommendations are much more similar rather 
+than just recommendations on the similar name
+
+- Make sure that details about the recommended movies/tv shows can be accessed. So that the user has more details
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-shell">
+        <div class="container results-page">
+            <div class="results-header">
+                <span class="eyebrow">Recommendation Results</span>
+                <h1>{{ message }}</h1>
+            </div>
+
+            {% if searched_movie %}
+                <section class="featured-movie">
+                    <div class="featured-copy">
+                        <p class="section-label">Searched Movie</p>
+                        <h2>{{ searched_movie.title }}</h2>
+                        <p class="meta-line">{{ searched_movie.year }} • {{ searched_movie.genres }}</p>
+                        <p class="description">
+                            This title is the anchor for the recommendation list below.
+                        </p>
+                    </div>
+                </section>
+            {% endif %}
+
+            <section>
+                <div class="section-header">
+                    <h2>Top 10 Similar Movies</h2>
+                    <p>Ranked using a hybrid score from title features and genre-aware content similarity.</p>
+                </div>
+
+                <div class="recommendations">
+                    {% for rec in recommendations %}
+                        <article class="card">
+                            <div class="card-topline">
+                                <span class="card-rank">#{{ loop.index }}</span>
+                                {% if rec.similarity_score is not none %}
+                                    <span class="score">{{ rec.similarity_score }}% match</span>
+                                {% endif %}
+                            </div>
+                            <h3>{{ rec.title }}</h3>
+                            <p class="meta-line">{{ rec.year }} • {{ rec.genres }}</p>
+                            <p class="shared-genres">Shared genres: {{ rec.shared_genres }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <div class="back-btn">
+                <a href="{{ url_for('index') }}">Back to Search</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
