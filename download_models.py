@@ -17,7 +17,6 @@ def main():
         output=".",
         quiet=False,
         use_cookies=False,
-        remaining_ok=True,
     )
 
     if not REQUIRED_MODEL.exists():
