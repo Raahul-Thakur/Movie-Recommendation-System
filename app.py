@@ -1,5 +1,6 @@
 import pickle
 import re
+import os
 from pathlib import Path
 from difflib import get_close_matches
 
@@ -182,13 +183,19 @@ def prepare_recommender():
     if CACHE_FILE.exists():
         with CACHE_FILE.open("rb") as cache_handle:
             cached_payload = pickle.load(cache_handle)
-        if cached_payload.get("signature") == get_data_signature():
+        if not data_files_available() or cached_payload.get("signature") == get_data_signature():
             return (
                 cached_payload["movies"],
                 cached_payload["content_matrix"],
                 cached_payload["collaborative_matrix"],
                 cached_payload["rating_counts"],
             )
+
+    if not data_files_available():
+        missing_files = ", ".join(file_name for file_name in DATA_FILES if not Path(file_name).exists())
+        raise FileNotFoundError(
+            f"Missing data files: {missing_files}. Add {CACHE_FILE} or the source CSV files before starting the app."
+        )
 
     df = load_movies()
     df["tag_text"] = df["movieId"].map(load_tag_features()).fillna("")
@@ -209,6 +216,10 @@ def prepare_recommender():
     with CACHE_FILE.open("wb") as cache_handle:
         pickle.dump(cache_payload, cache_handle, protocol=pickle.HIGHEST_PROTOCOL)
     return df, content_matrix, collaborative_matrix, rating_counts
+
+
+def data_files_available():
+    return all(Path(file_name).exists() for file_name in DATA_FILES)
 
 
 def get_data_signature():
@@ -324,4 +335,5 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)

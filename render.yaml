@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: movie-recommendation-system
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python download_models.py
+    startCommand: gunicorn app:app
